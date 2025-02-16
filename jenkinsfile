@@ -1,0 +1,30 @@
+pipeline {
+    agent any  // Exécute le pipeline sur n'importe quel agent disponible
+
+    triggers {
+        pollSCM('* * * * *') // Vérifie les modifications Git chaque minute
+    }
+
+    stages {
+        stage('Cloner le dépôt') {
+            steps {
+                git branch: 'main', url: 'https://github.com/heithem10/Project_DEVOPS.git'
+            }
+        }
+
+        stage('Afficher la date système') {
+            steps {
+                script {
+                    def date = new Date()
+                    echo "Date actuelle : ${date}"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline terminé."
+        }
+    }
+}
