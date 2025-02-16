@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Cloner le dépôt') {
             steps {
-                git branch: 'main', url: 'https://github.com/heithem10/Project_DEVOPS.git'
+                git branch: 'main', url: 'https://github.com/malekriahi/DevOps_Project.git'
             }
         }
 
