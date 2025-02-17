@@ -9,5 +9,5 @@ RUN mvn clean package -DskipTests  # Builds the JAR
 FROM openjdk:17-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/target/gestion-station-ski-1.0.jar /app/gestion-station-ski-1.0.jar
-EXPOSE 8082
+EXPOSE 8070
 ENTRYPOINT ["java", "-jar", "/app/gestion-station-ski-1.0.jar"]
