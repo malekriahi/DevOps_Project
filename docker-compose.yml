@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  mysql-db:
-    image: mysql:8
+  mysql-container:
+    image: mysql:latest
     container_name: mysql-container
     restart: always
     environment:
@@ -10,30 +10,28 @@ services:
       MYSQL_DATABASE: stationSki
     ports:
       - "3306:3306"
+    networks:
+      - mynetwork
     volumes:
       - mysql_data:/var/lib/mysql
-    networks:
-      - ski_network
 
-  station-ski-app:
+  station-ski:
     image: helmibacha/station-ski:latest
     container_name: station-ski
     restart: always
     depends_on:
-      - mysql-db
+      - mysql-container
     environment:
-      SERVER_PORT: 8070
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container:3306/stationSki?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
       - "8070:8070"
     networks:
-      - ski_network
+      - mynetwork
 
 networks:
-  ski_network:
+  mynetwork:
 
 volumes:
   mysql_data:
